@@ -3,14 +3,14 @@ ARG TRANSATOR_BRANCH
 ENV TRANSATOR_BRANCH=${TRANSATOR_BRANCH:-release/2.0}
 RUN apk update && apk add openjdk8 maven wget && \
     mkdir -p /transator-java && \
-    wget -q -O - https://github.com/pcm32/transator-java/archive/$TRANSATOR_BRANCH.tar.gz | tar xzf - --strip-components=1 -C /transator-java && \
+    wget -q -O - https://github.com/MicrobiologyETHZ/transator-java/archive/$TRANSATOR_BRANCH.tar.gz | tar xzf - --strip-components=1 -C /transator-java && \
     mvn clean install -f /transator-java/pom.xml -DskipTests && \
     mvn clean package -f /transator-java/pom.xml -DskipTests
 
 # Note: moving to jre11-slim means that debian sid is used, which installs HMMER 3.2 instead of 3.1, which breaks the structure
 # generation part with a String being used in an 
 FROM tomcat:9-jre8-slim
-MAINTAINER Pablo Moreno <pmoreno@ebi.ac.uk>
+MAINTAINER Chris Field <fieldc@ethz.ch>
 
 RUN mkdir -p /python-pks/PKSPredictor
 RUN mkdir /java-runner

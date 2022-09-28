@@ -1,6 +1,6 @@
 FROM alpine:3.8 as transator
 ARG TRANSATOR_BRANCH
-ENV TRANSATOR_BRANCH=${TRANSATOR_BRANCH:-release/2.0}
+ENV TRANSATOR_BRANCH=${TRANSATOR_BRANCH:-develop}
 RUN apk update && apk add openjdk8 maven wget && \
     mkdir -p /transator-java && \
     wget -q -O - https://github.com/MicrobiologyETHZ/transator-java/archive/$TRANSATOR_BRANCH.tar.gz | tar xzf - --strip-components=1 -C /transator-java && \
